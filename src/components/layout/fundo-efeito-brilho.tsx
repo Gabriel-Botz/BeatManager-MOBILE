@@ -6,10 +6,8 @@ export function FundoEfeitoBrilho() {
       <Image
         source={require('../../../assets/images/background-mb.png')}
         style={estilos.textura}
-        resizeMode="cover"
+        resizeMode="center"
       />
-      <View style={estilos.glowPrimario} />
-      <View style={estilos.glowAcento} />
     </View>
   );
 }
@@ -22,25 +20,5 @@ const estilos = StyleSheet.create({
   textura: {
     ...StyleSheet.absoluteFillObject,
     opacity: 0.15,
-  },
-  glowPrimario: {
-    position: 'absolute',
-    top: '25%',
-    left: '15%',
-    width: 300,
-    height: 300,
-    borderRadius: 9999,
-    backgroundColor: '#7e3ffc',
-    opacity: 0.1,
-  },
-  glowAcento: {
-    position: 'absolute',
-    bottom: '25%',
-    right: '15%',
-    width: 300,
-    height: 300,
-    borderRadius: 9999,
-    backgroundColor: '#fc1eb4',
-    opacity: 0.1,
   },
 });
