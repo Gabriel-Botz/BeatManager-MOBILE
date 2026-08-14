@@ -19,6 +19,6 @@ const estilos = StyleSheet.create({
   },
   textura: {
     ...StyleSheet.absoluteFillObject,
-    opacity: 0.4,
+    opacity: 0.15,
   },
 });
