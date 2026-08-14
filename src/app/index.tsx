@@ -38,7 +38,7 @@ export default function IndexScreen() {
         ]}
       >
         <Image
-          source={require('@assets/images/logo-header2.png')}
+          source={require('../../assets/images/logo-header2.png')}
           style={estilos.logo}
           resizeMode="contain"
         />

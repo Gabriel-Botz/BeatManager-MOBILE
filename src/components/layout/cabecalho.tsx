@@ -9,7 +9,7 @@ export function Cabecalho({ children }: CabecalhoProps) {
   return (
     <View style={estilos.cabecalho}>
       <Image
-        source={require('@assets/images/logo-header2.png')}
+        source={require('../../../assets/images/logo-header2.png')}
         style={estilos.logo}
         resizeMode="contain"
       />
