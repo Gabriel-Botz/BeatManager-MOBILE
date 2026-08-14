@@ -1,6 +1,7 @@
-import { ScrollView, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { View, ScrollView, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Cores } from '@/constants/colors';
+import { FundoEfeitoBrilho } from './fundo-efeito-brilho';
 
 interface PaginaFormularioProps {
   children: React.ReactNode;
@@ -14,6 +15,7 @@ export function PaginaFormulario({ children }: PaginaFormularioProps) {
       style={estilos.pagina}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+      <FundoEfeitoBrilho />
       <ScrollView
         contentContainerStyle={[
           estilos.conteudo,

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/auth-context';
 import { PaginaFormulario } from '@/components/layout/pagina-formulario';
@@ -9,6 +9,7 @@ import { CampoFormulario } from '@/components/ui/campo-formulario';
 import { CampoSenha } from '@/components/ui/campo-senha';
 import { BotaoPrimario } from '@/components/ui/botao-primario';
 import { RodapeFormulario } from '@/components/ui/rodape-formulario';
+import { Cores } from '@/constants/colors';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -39,6 +40,10 @@ export default function LoginPage() {
       <Logo />
 
       <View style={estilos.cartao}>
+        <Pressable style={estilos.botaoFechar} onPress={() => router.replace('/')}>
+          <Text style={estilos.botaoFecharTexto}>X</Text>
+        </Pressable>
+
         {erro ? <Alerta tipo="erro">{erro}</Alerta> : null}
 
         <CampoFormulario
@@ -78,5 +83,25 @@ const estilos = StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.08)',
     padding: 20,
     gap: 14,
+    position: 'relative',
+  },
+  botaoFechar: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    width: 24,
+    height: 24,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: Cores.bordaCartao,
+    backgroundColor: 'rgba(10, 10, 20, 0.6)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 20,
+  },
+  botaoFecharTexto: {
+    color: 'rgba(226, 232, 240, 0.7)',
+    fontSize: 12,
+    fontWeight: '600',
   },
 });

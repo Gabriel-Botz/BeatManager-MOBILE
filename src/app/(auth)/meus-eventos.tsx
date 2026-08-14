@@ -7,6 +7,7 @@ import { Evento, TipoEvento } from '@/lib/types';
 import * as api from '@/lib/api';
 import { Cabecalho } from '@/components/layout/cabecalho';
 import { CabecalhoLogado } from '@/components/layout/cabecalho-logado';
+import { FundoEfeitoBrilho } from '@/components/layout/fundo-efeito-brilho';
 import { CartaoEvento } from '@/components/evento/cartao-evento';
 import { ModalEvento } from '@/components/evento/modal-evento';
 import { FiltrosEventos } from '@/components/evento/filtros-eventos';
@@ -115,6 +116,7 @@ export default function MeusEventosPage() {
 
   return (
     <View style={estilos.pagina}>
+      <FundoEfeitoBrilho />
       <Cabecalho>
         <CabecalhoLogado aoSair={handleLogout} />
       </Cabecalho>

@@ -1,9 +1,10 @@
-import { View, Text, Pressable, ScrollView, Image, StyleSheet } from 'react-native';
+import { View, Text, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/auth-context';
 import { Cabecalho } from '@/components/layout/cabecalho';
 import { CartaoRecurso } from '@/components/evento/cartao-recurso';
+import { FundoEfeitoBrilho } from '@/components/layout/fundo-efeito-brilho';
 import { Cores } from '@/constants/colors';
 import { Calendar, Music, Headphones } from 'lucide-react-native';
 
@@ -14,6 +15,7 @@ export default function IndexScreen() {
 
   return (
     <View style={estilos.pagina}>
+      <FundoEfeitoBrilho />
       <Cabecalho>
         {admin ? (
           <Pressable style={estilos.botaoSair} onPress={logout}>
@@ -37,12 +39,6 @@ export default function IndexScreen() {
           { paddingTop: insets.top + 40, paddingBottom: insets.bottom + 24 },
         ]}
       >
-        <Image
-          source={require('../../assets/images/logo-header2.png')}
-          style={estilos.logo}
-          resizeMode="contain"
-        />
-
         <Text style={estilos.titulo}>
           Gerencie seus{'\n'}
           <Text style={estilos.textoGradiente}>eventos</Text>
@@ -105,11 +101,6 @@ const estilos = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     paddingHorizontal: 24,
-  },
-  logo: {
-    width: 160,
-    height: 54,
-    marginBottom: 32,
   },
   titulo: {
     fontSize: 32,
