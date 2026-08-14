@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/auth-context';
 import { PaginaFormulario } from '@/components/layout/pagina-formulario';
@@ -9,7 +9,6 @@ import { CampoFormulario } from '@/components/ui/campo-formulario';
 import { CampoSenha } from '@/components/ui/campo-senha';
 import { BotaoPrimario } from '@/components/ui/botao-primario';
 import { RodapeFormulario } from '@/components/ui/rodape-formulario';
-import { Cores } from '@/constants/colors';
 
 export default function LoginPage() {
   const router = useRouter();

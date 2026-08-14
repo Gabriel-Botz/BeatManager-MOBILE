@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TextInput, Pressable, ScrollView, Image, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Pressable, ScrollView, Image, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Upload, X } from 'lucide-react-native';
 import { TipoEvento, type Evento, type EventoRequest } from '@/lib/types';

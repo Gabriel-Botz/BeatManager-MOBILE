@@ -1,4 +1,4 @@
-import { View, ScrollView, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { ScrollView, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Cores } from '@/constants/colors';
 

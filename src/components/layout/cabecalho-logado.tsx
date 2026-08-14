@@ -1,5 +1,5 @@
 import { Pressable, Text, StyleSheet } from 'react-native';
-import { useRouter, usePathname } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { LogOut } from 'lucide-react-native';
 import { Cores } from '@/constants/colors';
 
@@ -9,8 +9,6 @@ interface CabecalhoLogadoProps {
 
 export function CabecalhoLogado({ aoSair }: CabecalhoLogadoProps) {
   const router = useRouter();
-  const pathname = usePathname();
-  const estaEmMeusEventos = pathname.includes('meus-eventos');
 
   return (
     <>

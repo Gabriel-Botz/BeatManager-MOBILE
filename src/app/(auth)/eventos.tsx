@@ -19,7 +19,7 @@ const ITENS_POR_PAGINA = 6;
 
 export default function EventosPage() {
   const router = useRouter();
-  const { admin, token, logout } = useAuth();
+  const { token, logout } = useAuth();
   const insets = useSafeAreaInsets();
   const [eventos, setEventos] = useState<Evento[]>([]);
   const [loading, setLoading] = useState(true);
