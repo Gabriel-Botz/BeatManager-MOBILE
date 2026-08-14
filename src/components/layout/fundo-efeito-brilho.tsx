@@ -6,7 +6,7 @@ export function FundoEfeitoBrilho() {
       <Image
         source={require('../../../assets/images/background-mb.png')}
         style={estilos.textura}
-        resizeMode="center"
+        resizeMode="cover"
       />
     </View>
   );
