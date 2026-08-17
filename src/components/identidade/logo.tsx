@@ -12,8 +12,8 @@ export function Logo() {
 
 const estilos = StyleSheet.create({
   logo: {
-    width: 160,
-    height: 54,
+    width: 480,
+    height: 162,
     alignSelf: 'center',
     marginBottom: 24,
   },

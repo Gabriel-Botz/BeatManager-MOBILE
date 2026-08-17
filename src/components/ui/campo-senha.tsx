@@ -58,6 +58,7 @@ const estilos = StyleSheet.create({
     borderColor: Cores.bordaInput,
     color: Cores.texto,
     fontSize: 16,
+    outlineStyle: 'none',
   },
   botaoIcone: {
     position: 'absolute',

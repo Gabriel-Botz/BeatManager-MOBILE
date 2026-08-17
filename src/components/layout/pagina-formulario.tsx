@@ -19,7 +19,7 @@ export function PaginaFormulario({ children }: PaginaFormularioProps) {
       <ScrollView
         contentContainerStyle={[
           estilos.conteudo,
-          { paddingTop: insets.top + 40, paddingBottom: insets.bottom + 24 },
+          { paddingTop: insets.top, paddingBottom: insets.bottom },
         ]}
         keyboardShouldPersistTaps="handled"
       >

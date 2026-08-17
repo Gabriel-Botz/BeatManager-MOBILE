@@ -18,7 +18,12 @@ const estilos = StyleSheet.create({
     overflow: 'hidden',
   },
   textura: {
-    ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
+    width: '200%',
+    height: '100%',
+    left: '-50%',
+    top: '0%',
+    marginLeft: 15,
     opacity: 0.15,
   },
 });

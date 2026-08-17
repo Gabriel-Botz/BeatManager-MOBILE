@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { View, Text, TextInput, Pressable, ScrollView, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Pressable, ScrollView, Image, StyleSheet, Platform } from 'react-native';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import { Upload, X } from 'lucide-react-native';
 import { TipoEvento, type Evento, type EventoRequest } from '@/lib/types';
@@ -18,6 +19,8 @@ const categoriasDisponiveis = Object.values(TipoEvento) as TipoEvento[];
 export function FormularioEvento({ token, aoCadastrar, evento, aoCancelar }: FormularioEventoProps) {
   const [nome, setNome] = useState(evento?.nome ?? '');
   const [data, setData] = useState(evento?.data.split('T')[0] ?? '');
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showCategorias, setShowCategorias] = useState(false);
   const [localizacao, setLocalizacao] = useState(evento?.localizacao ?? '');
   const [descricao, setDescricao] = useState(evento?.descricao ?? '');
   const [tipo, setTipo] = useState<TipoEvento>(evento?.tipo ?? TipoEvento.SHOW);
@@ -27,6 +30,24 @@ export function FormularioEvento({ token, aoCadastrar, evento, aoCancelar }: For
   const [enviando, setEnviando] = useState(false);
 
   const editando = !!evento;
+
+  function onDateChange(event: DateTimePickerEvent, selectedDate?: Date) {
+    setShowDatePicker(false);
+    if (event.type === 'set' && selectedDate) {
+      const year = selectedDate.getFullYear();
+      const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+      const day = String(selectedDate.getDate()).padStart(2, '0');
+      setData(`${year}-${month}-${day}`);
+    }
+  }
+
+  function getDateValue(): Date {
+    if (data) {
+      const [year, month, day] = data.split('-').map(Number);
+      return new Date(year, month - 1, day);
+    }
+    return new Date();
+  }
 
   async function selecionarImagem() {
     const resultado = await ImagePicker.launchImageLibraryAsync({
@@ -115,7 +136,7 @@ export function FormularioEvento({ token, aoCadastrar, evento, aoCancelar }: For
   }
 
   return (
-    <ScrollView style={estilos.formulario} showsVerticalScrollIndicator={false}>
+    <ScrollView contentContainerStyle={estilos.formulario} showsVerticalScrollIndicator={false}>
       {erro ? (
         <View style={estilos.erro}>
           <Text style={estilos.textoErro}>{erro}</Text>
@@ -132,7 +153,7 @@ export function FormularioEvento({ token, aoCadastrar, evento, aoCancelar }: For
       <View style={estilos.campoGrupo}>
         <Text style={estilos.rotulo}>Nome do evento</Text>
         <TextInput
-          style={estilos.campo}
+          style={[estilos.campo, editando && estilos.campoDesabilitado]}
           value={nome}
           onChangeText={setNome}
           placeholder="Ex: Festival Eletronico"
@@ -143,13 +164,58 @@ export function FormularioEvento({ token, aoCadastrar, evento, aoCancelar }: For
 
       <View style={estilos.campoGrupo}>
         <Text style={estilos.rotulo}>Data</Text>
-        <TextInput
-          style={estilos.campo}
-          value={data}
-          onChangeText={setData}
-          placeholder="AAAA-MM-DD"
-          placeholderTextColor={Cores.mutado}
-        />
+        {Platform.OS === 'web' ? (
+          <div style={{
+            width: '100%',
+            borderRadius: 12,
+            overflow: 'hidden',
+            borderWidth: 1,
+            borderStyle: 'solid',
+            borderColor: Cores.bordaInput,
+          }}>
+            <input
+              type="date"
+              value={data}
+              onChange={(e) => setData(e.target.value)}
+              min="2020-01-01"
+              max="2030-12-31"
+              style={{
+                width: '100%',
+                height: 48,
+                boxSizing: 'border-box',
+                border: 'none',
+                paddingLeft: 11,
+                paddingRight: 11,
+                borderRadius: 0,
+                backgroundColor: Cores.fundoInput,
+                color: Cores.texto,
+                fontSize: 16,
+                outline: 'none',
+              } as any}
+            />
+          </div>
+        ) : (
+          <>
+            <Pressable
+              style={estilos.campo}
+              onPress={() => setShowDatePicker(true)}
+            >
+              <Text style={estilos.dataTexto}>
+                {data || 'Selecione uma data'}
+              </Text>
+            </Pressable>
+            {showDatePicker && (
+              <DateTimePicker
+                value={getDateValue()}
+                mode="date"
+                display="spinner"
+                onChange={onDateChange}
+                minimumDate={new Date(2020, 0, 1)}
+                maximumDate={new Date(2030, 11, 31)}
+              />
+            )}
+          </>
+        )}
       </View>
 
       <View style={estilos.campoGrupo}>
@@ -248,10 +314,10 @@ export function FormularioEvento({ token, aoCadastrar, evento, aoCancelar }: For
 
 const estilos = StyleSheet.create({
   formulario: {
-    gap: 14,
+    gap: 20,
   },
   campoGrupo: {
-    gap: 6,
+    gap: 8,
   },
   rotulo: {
     fontSize: 14,
@@ -261,13 +327,23 @@ const estilos = StyleSheet.create({
   campo: {
     width: '100%',
     paddingVertical: 12,
-    paddingHorizontal: 14,
+    paddingHorizontal: 11,
     borderRadius: 12,
     backgroundColor: Cores.fundoInput,
     borderWidth: 1,
     borderColor: Cores.bordaInput,
     color: Cores.texto,
     fontSize: 16,
+    outlineStyle: 'none',
+  },
+  campoDesabilitado: {
+    opacity: 0.5,
+    backgroundColor: 'rgba(30, 30, 50, 0.5)',
+  },
+  dataTexto: {
+    color: Cores.texto,
+    fontSize: 16,
+    paddingLeft: 2,
   },
   textarea: {
     minHeight: 80,
@@ -276,6 +352,7 @@ const estilos = StyleSheet.create({
   categorias: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: 'center',
     gap: 8,
   },
   categoriaBotao: {
